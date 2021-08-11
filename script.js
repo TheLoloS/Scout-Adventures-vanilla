@@ -1,26 +1,50 @@
+// Autor TheLoloS                                 
+//                     ***.                
+//               #  &         %&   %       
+//            *@@@(              %(  @     
+//        &&@@@@(....%@@.       @, %/ &    
+//   ,@@@&&@@@@@@@@@@@@@%@#      #& (.(((  
+//    * # &@@(  ,&&,@@@@@@(       &% @ %(/ 
+//       %%       &@@@@@@@%@,     *@ ,,#&, 
+//               #@@@@@@@@@@      *@  & @  
+//              /,/&@@@@@@,,     ,@  @.@*  
+//           #&**@@@@@@@@@@     (@ .* @(   
+//         @@@@@@@@@@@@@@# *. ##   .@@.    
+//          @@@@@@@@@@@@@@@, .(@@@@@.      
+//           *@@@@@@@@@@@@@@@@@@@/         
+//              (@,%@@@@@@,,               
+
+
 import * as THREE from './three/build/three.module.js'
 import { OrbitControls } from './three/examples/jsm/controls/OrbitControls.js'
 import { OBJLoader } from './three/examples/jsm/loaders/OBJLoader.js';
-// import * as dat from 'dat.gui'
+import { GUI } from './three/examples/jsm/libs/dat.gui.module.js'
 import { Material, PerspectiveCamera } from './three/build/three.module.js'
 
-const c = console.log
-    // Debug
-    // const gui = new dat.GUI()
+
+const c = console.log;
+
+// Debug gui
+
+const gui = new GUI()
 
 // Canvas
+
 const canvas = document.querySelector('canvas.webgl')
 
-c({ OBJLoader })
 
 // Scene
+
 const scene = new THREE.Scene()
 var axesHelper = new THREE.AxesHelper(5);
 scene.add(axesHelper);
 
 // Objects
+
 const geometry = new THREE.BoxGeometry(1, 1, 1, 6);
 const geometry2 = new THREE.BoxGeometry(1, 1, 1, 6);
+
+//script for mapping textures:
 
 // Materials
 // const loader = new THREE.CubeTextureLoader();
@@ -33,6 +57,8 @@ const geometry2 = new THREE.BoxGeometry(1, 1, 1, 6);
 // ] );
 // const materialtx = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: textureCube } );
 
+//material list usage: materialIndex = \how in simple array/
+
 const materials = [
     new THREE.MeshBasicMaterial({ color: "#6EC54B" }),
     new THREE.MeshBasicMaterial({ color: "#59a33b" }),
@@ -40,12 +66,6 @@ const materials = [
     new THREE.MeshBasicMaterial({ color: "#452f07" })
 ]
 
-// const material3 = new THREE.MeshBasicMaterial()
-// material3.color = new THREE.Color(0x6EC54B)
-// const material2 = new THREE.MeshBasicMaterial()
-// material2.color = new THREE.Color(0x59a33b)
-// const material4 = new THREE.MeshBasicMaterial()
-// material4.color = new THREE.Color(0x5e4007)
 
 //first material do with gorups
 
