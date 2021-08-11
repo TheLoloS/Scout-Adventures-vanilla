@@ -106,6 +106,14 @@ pointLight.position.x = 2
 pointLight.position.y = 3
 pointLight.position.z = 4
 scene.add(pointLight)
+
+//add obj and mtl files function
+
+
+function addobjmtlobject(scale, position, rotation, ) {
+
+}
+
 var manager = new THREE.LoadingManager();
 var loader = new OBJLoader();
 loader.load(

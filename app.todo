@@ -1,0 +1,19 @@
+Do function to easly create new obiect on area:
+    ☐ connect OBJ and MTL objects in one mesh
+    ☐ use parametrs odf function to edit position, rotate, and size of imported objects
+    ☐ store all meshes in one obiect to can use them latter
+    ☐ add rotate option to gui menu of objects add to the map from user (meaby second fuction?)
+    ☐ edit rotate for default rotate of object and delete position on addobjmtlobject() parameters
+    ☐ add asynch to load objects and ()=> retur end of the loading (must have... for loading screen and opymalization)
+Do system of the clicking:
+    ☐ try to figure out how to do that and what idea is the best of all
+Do interface:
+    ☐ choose for best opcition...  html interface || in three interfaces +|-
+Change the head of page:
+    ☐ Change autor/links/tags/icons/titles/
+    ☐ shere it on github pages
+Database:
+    ☐ choose databyse mongodb/mysql
+    ☐ try to learn choosen technology
+
+
