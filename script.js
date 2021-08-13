@@ -18,11 +18,31 @@
 import * as THREE from './three/build/three.module.js'
 import { OrbitControls } from './three/examples/jsm/controls/OrbitControls.js'
 import { OBJLoader } from './three/examples/jsm/loaders/OBJLoader.js';
+import { MTLLoader } from './three/examples/jsm/loaders/MTLLoader.js ';
 import { GUI } from './three/examples/jsm/libs/dat.gui.module.js'
+import Stats from './three/examples/jsm/libs/stats.module.js'
 import { Material, PerspectiveCamera } from './three/build/three.module.js'
 
 
+var stats = new Stats(); // <-- remove me
+document.body.appendChild(stats.dom); // <-- remove me
+
+
+
 const c = console.log;
+
+//variables for add floor objects
+
+let a = 0,
+    b = 0,
+    florArray = [];
+
+//size od webpage
+
+const sizes = {
+    width: window.innerWidth,
+    height: window.innerHeight
+}
 
 // Debug gui
 
@@ -32,40 +52,55 @@ const gui = new GUI()
 
 const canvas = document.querySelector('canvas.webgl')
 
-
 // Scene
 
 const scene = new THREE.Scene()
 var axesHelper = new THREE.AxesHelper(5);
 scene.add(axesHelper);
 
-// Objects
+// Lights
+
+//light for ale things and models
+
+const Light = new THREE.AmbientLight(0xffffff, 1);
+scene.add(Light)
+
+//light for models and shadows
+
+const pointLight = new THREE.SpotLight(0xffffff);
+
+// set target,position,size od map(better shadows), 
+// near and far (camera), focus to see shadow.
+// sfunk to hide code
+(function pointLightConfig() {
+    pointLight.target.position.set(-20, 0, -20);
+    pointLight.position.set(-42, 40, -42);
+    pointLight.shadow.mapSize.width = 8192;
+    pointLight.shadow.mapSize.height = 8192;
+    pointLight.shadow.camera.near = 0.1;
+    pointLight.shadow.camera.far = 100;
+    pointLight.shadow.focus = 0.5;
+    pointLight.castShadow = true;
+})();
+
+//add all patrs of light to scene (important order!!)
+
+scene.add(pointLight);
+scene.add(pointLight.target)
+
+//geometry box for flor
 
 const geometry = new THREE.BoxGeometry(1, 1, 1, 6);
 const geometry2 = new THREE.BoxGeometry(1, 1, 1, 6);
 
-//script for mapping textures:
-
-// Materials
-// const loader = new THREE.CubeTextureLoader();
-// loader.setPath( 'textures/cube/pisa/' );
-
-// const textureCube = loader.load( [
-// 	'px.png', 'nx.png',
-// 	'py.png', 'ny.png',
-// 	'pz.png', 'nz.png'
-// ] );
-// const materialtx = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: textureCube } );
-
 //material list usage: materialIndex = \how in simple array/
 
 const materials = [
-    new THREE.MeshBasicMaterial({ color: "#6EC54B" }),
-    new THREE.MeshBasicMaterial({ color: "#59a33b" }),
-    new THREE.MeshBasicMaterial({ color: "#5e4007" }),
-    new THREE.MeshBasicMaterial({ color: "#452f07" })
+    new THREE.MeshStandardMaterial({ color: "#6EC54B" }),
+    new THREE.MeshStandardMaterial({ color: "#59a33b" }),
+    new THREE.MeshStandardMaterial({ color: "#5e4007" }),
+    new THREE.MeshStandardMaterial({ color: "#452f07" })
 ]
-
 
 //first material do with gorups
 
@@ -81,59 +116,55 @@ for (let i = 0; i < geometry2.groups.length; i++) {
 }
 geometry2.groups[2].materialIndex = 0;
 
-//variables for add floor objects
-
-let florArray = []
-let a = 0,
-    b = 0;
 
 //add objects for floor off the game:
 
 for (let i = 0; i < 1600; i++, a++) {
 
-    const sphere = new THREE.Mesh((i % 3 == 0) ? geometry : geometry2, materials);
+    // const sphere = new THREE.Mesh((i % 3 == 0) ? geometry : geometry2, materials);       //for rand color of flor
+    const sphere = new THREE.Mesh(geometry, materials);
     (a == 40) ? b += 1: b = b;
     sphere.position.x = -b;
     (a == 40) ? a = 0: a = a;
     sphere.position.z = -a;
-    scene.add(sphere)
+    sphere.receiveShadow = true;
+    scene.add(sphere);
+    (i == 1599) ? c(sphere.position): c();
+    (i == 0) ? c(sphere.position): c();
 }
 
-// Lights
-
-const pointLight = new THREE.PointLight(0xffffff, 0.1)
-pointLight.position.x = 2
-pointLight.position.y = 3
-pointLight.position.z = 4
-scene.add(pointLight)
 
 //add obj and mtl files function
 
+const mtlLoader = new MTLLoader()
+mtlLoader.load('./models/tent_blend_9.mtl',
+    (materials) => {
+        materials.preload()
+        const objLoader = new OBJLoader();
+        objLoader.setMaterials(materials);
+        objLoader.load('./models/tent_blend_9.obj',
+            (object) => {
+                object.position.x = -2.75
+                object.position.y = 0.5
+                object.position.z = -3.25
+                object.children[0].castShadow = true; //default is false
 
-function addobjmtlobject(scale, position, rotation, ) {
+                object.receiveShadow = true;
+                // object.children[0].material.color = new THREE.Color(0.384, 0.698, 0.258);
+                // object.children[0].material.emissive = new THREE.Color(0, 0, 0);
+                object.children[0].material.shininess = 0;
+                scene.add(object)
+            },
+            (xhr) => {
+                c((xhr.loaded / xhr.total * 100) + '% loaded')
+            },
+            (error) => {
+                c('Masz problem: ' + error)
+            })
+    }
+);
 
-}
-
-var manager = new THREE.LoadingManager();
-var loader = new OBJLoader();
-loader.load(
-
-    'https://cdn.jsdelivr.net/gh/TheLoloS/Scout-Adventure/tent.obj',
-
-    function(object) {
-        scene.add(object);
-        c(object)
-    });
-
-
-/**
- * Sizes
- */
-
-const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight
-}
+//change on resize page (renderer)
 
 window.addEventListener('resize', () => {
     console.log(PerspectiveCamera)
@@ -154,20 +185,10 @@ window.addEventListener('resize', () => {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
-/**
- * Camera
- */
-
-// Base camera perspective: 
+//camera add and config
 
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-
-//add starrt position off camera"
-
-camera.position.x = 20
-camera.position.y = 50
-camera.position.z = 20
-
+camera.position.set(0, 40, 0);
 scene.add(camera)
 
 /**
@@ -179,25 +200,27 @@ const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 
 })
+renderer.shadowMap.enabled = true;
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+//config page movment
+
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.target.set(-10, 0, -10)
+controls.target.set(-15, 0, -15)
 
-//camera set up
+//camera set up and movment
 
-controls.maxDistance = 30
+controls.maxDistance = 40
 controls.minDistance = 6
-    // controls.maxPolarAngle = 1
-    // controls.minPolarAngle = 1
-c(controls.getAzimuthalAngle())
-    // controls.minAzimuthAngle = 1
-    // controls.screenSpacePanning = 10 //poziomo prawy przycisk
+controls.maxPolarAngle = 1.1
+controls.minPolarAngle = 0.9
+controls.minAzimuthAngle = 1
+controls.screenSpacePanning = 5 //right mouse click
 
 controls.update();
 
 const clock = new THREE.Clock()
-
 const tick = () => {
 
     const elapsedTime = clock.getElapsedTime()
@@ -205,9 +228,7 @@ const tick = () => {
     // Render
     renderer.render(scene, camera)
     controls.update();
-
-
-
+    stats.update();
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)
 }

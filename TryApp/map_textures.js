@@ -1,4 +1,4 @@
-/* // Autor TheLoloS                                 
+// Autor TheLoloS                                 
 //                     ***.                
 //               #  &         %&   %       
 //            *@@@(              %(  @     
@@ -12,22 +12,17 @@
 //         @@@@@@@@@@@@@@# *. ##   .@@.    
 //          @@@@@@@@@@@@@@@, .(@@@@@.      
 //           *@@@@@@@@@@@@@@@@@@@/         
-//              (@,%@@@@@@,,                */
+//              (@,%@@@@@@,,               
 
-* {
-    margin: 0;
-    padding: 0;
-}
+// script for mapping textures:
 
-html,
-body {
-    height: 100vh;
-    font-family: 'Poppins';
-}
+Materials
+const loader = new THREE.CubeTextureLoader();
+loader.setPath('textures/cube/pisa/');
 
-.webgl {
-    position: fixed;
-    top: 0;
-    left: 0;
-    outline: none;
-}
+const textureCube = loader.load([
+    'px.png', 'nx.png',
+    'py.png', 'ny.png',
+    'pz.png', 'nz.png'
+]);
+const materialtx = new THREE.MeshBasicMaterial({ color: 0xffffff, envMap: textureCube });
