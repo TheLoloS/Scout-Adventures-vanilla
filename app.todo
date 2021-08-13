@@ -1,11 +1,19 @@
 Do function to easly create new obiect on area:
-    ✔ connect OBJ and MTL objects in one mesh @started(21-08-12 09:15) @done(21-08-12 20:45) @lasted(11h30m45s)
-        ✔ fix shadows @started(21-08-12 20:35) @done(21-08-12 20:45) @lasted(10m41s)
-        ☐ configure meshes @started(21-08-12 20:35)
-        ☐ set light position @started(21-08-12 20:35)
-    ☐ fix and add min/max to camera @started(21-08-12 20:35)
+    ✔ connect OBJ and MTL objects in one mesh. @started(21-08-12 09:15) @done(21-08-12 20:45) @lasted(11h30m45s)
+        ✔ fix shadows. @started(21-08-12 20:35) @done(21-08-12 20:45) @lasted(10m41s)
+        ✔ configure meshes. @started(21-08-12 20:35) @done(21-08-13 02:36) @lasted(6h1m8s)
+        ✔ set light position. @started(21-08-13 02:35) @done(21-08-13 02:35) @lasted(11s)
+    ✔ fix and add min/max to camera. @started(21-08-12 20:35) @done(21-08-13 02:35) @lasted(6h15s)
+    ✔ clean code and add comments. @done(21-08-13 02:37)
+    ✔ teach how to use dat.gui and lights. @done(21-08-13 02:38)
+    ✔ add first work model to map ! @started(21-08-13 02:39) @done(21-08-13 02:39) @lasted(3s)
+    ✔ add fps bench. @done(21-08-13 02:39)
+    ✔ do repozytory and ad files to it. @started(21-08-13 02:40) @done(21-08-13 02:40) @lasted(19s)
+        ✔ clean the files and junks. @started(21-08-13 02:40) @done(21-08-13 02:40) @lasted(21s)
+    ✔ create TryIt templaye to test operations. @started(21-08-13 02:41) @done(21-08-13 02:41) @lasted(12s)
+    ☐ find the difference with rgb color on Blender and show on the site.
     ☐ use parametrs odf function to edit position, rotate, and size of imported objects
-    ☐ store all meshes in one obiect to can use them latter
+    ☐ store all meshes in one object to can use them latter
     ☐ add rotate option to gui menu of objects add to the map from user (meaby second fuction?)
     ☐ edit rotate for default rotate of object and delete position on addobjmtlobject() parameters
     ☐ add asynch to load objects and ()=> retur end of the loading (must have... for loading screen and opymalization)
