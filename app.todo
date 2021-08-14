@@ -11,8 +11,9 @@ Do function to easly create new obiect on area:
     ✔ do repozytory and ad files to it. @started(21-08-13 02:40) @done(21-08-13 02:40) @lasted(19s)
         ✔ clean the files and junks. @started(21-08-13 02:40) @done(21-08-13 02:40) @lasted(21s)
     ✔ create TryIt templaye to test operations. @started(21-08-13 02:41) @done(21-08-13 02:41) @lasted(12s)
-    ☐ find the difference with rgb color on Blender and show on the site.
-    ☐ use parametrs odf function to edit position, rotate, and size of imported objects
+    ✔ find the difference with rgb color on Blender and show on the site. @started(21-08-14 20:59) @done(21-08-14 21:22) @lasted(23m30s)
+    ✔ mind of system to save maps of user data load object and other important stuff @done(21-08-14 22:21)
+    ✘ use parametrs odj function to edit position, rotate, and size of imported objects //figure out!!!!! @cancelled(21-08-14 22:48)
     ☐ store all meshes in one object to can use them latter
     ☐ add rotate option to gui menu of objects add to the map from user (meaby second fuction?)
     ☐ edit rotate for default rotate of object and delete position on addobjmtlobject() parameters
@@ -27,5 +28,15 @@ Change the head of page:
 Database:
     ☐ choose databyse mongodb/mysql
     ☐ try to learn choosen technology
-
-
+Lights:
+    ✔ ambient liht = same color of show and write, spotlight no try change it (optymalization) @started(21-08-14 22:45) @done(21-08-14 22:45) @lasted(35s)
+    ✘ INFO!! if spotlight turn off then ambient light for 1 from 0.5!!! @cancelled(21-08-14 22:46)
+Fix bugs:
+    ☐ FRAMES rendering are slow and show warn in consol
+Readme of github:
+    ☐ Do nice reademe of you github and sort it
+Lore:
+    ☐ must do lore and big object to load data od models and it parametrs
+Graphic:
+    ✔ Try to change color of sides of models to do 3d vision (optymalization) @started(21-08-14 22:43) @done(21-08-14 22:43) @lasted(10s)
+    ☐ without shadows and wors colors

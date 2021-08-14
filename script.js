@@ -27,7 +27,9 @@ import { Material, PerspectiveCamera } from './three/build/three.module.js'
 var stats = new Stats(); // <-- remove me
 document.body.appendChild(stats.dom); // <-- remove me
 
+//difference is the rgb difference of color value (you must -)
 
+let difference = [-0.21499999999999997, -0.361, -0.145]
 
 const c = console.log;
 
@@ -62,7 +64,7 @@ scene.add(axesHelper);
 
 //light for ale things and models
 
-const Light = new THREE.AmbientLight(0xffffff, 1);
+const Light = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(Light)
 
 //light for models and shadows
@@ -137,12 +139,12 @@ for (let i = 0; i < 1600; i++, a++) {
 //add obj and mtl files function
 
 const mtlLoader = new MTLLoader()
-mtlLoader.load('./models/tent_blend_9.mtl',
+mtlLoader.load('./models/tent_blend_10.mtl',
     (materials) => {
         materials.preload()
         const objLoader = new OBJLoader();
         objLoader.setMaterials(materials);
-        objLoader.load('./models/tent_blend_9.obj',
+        objLoader.load('./models/tent_blend_10.obj',
             (object) => {
                 object.position.x = -2.75
                 object.position.y = 0.5
