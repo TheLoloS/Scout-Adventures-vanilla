@@ -22,6 +22,8 @@ import { MTLLoader } from './three/examples/jsm/loaders/MTLLoader.js ';
 import { GUI } from './three/examples/jsm/libs/dat.gui.module.js'
 import Stats from './three/examples/jsm/libs/stats.module.js'
 import { Material, PerspectiveCamera } from './three/build/three.module.js'
+import abc from './dataBase.js'
+
 
 
 var stats = new Stats(); // <-- remove me
@@ -32,6 +34,7 @@ document.body.appendChild(stats.dom); // <-- remove me
 let difference = [-0.21499999999999997, -0.361, -0.145]
 
 const c = console.log;
+c(abc)
 
 //variables for add floor objects
 
@@ -135,41 +138,41 @@ for (let i = 0; i < 1600; i++, a++) {
     (i == 0) ? c(sphere.position): c();
 }
 
-
 //add obj and mtl files function
+abc.Map.Buldings.forEach(e => {
+    const mtlLoader = new MTLLoader()
+    mtlLoader.load(e.nameBuldings + '.mtl',
+        (materials) => {
+            materials.preload()
+            const objLoader = new OBJLoader();
+            objLoader.setMaterials(materials);
+            objLoader.load(e.nameBuldings + '.obj',
+                (object) => {
+                    object.position.x = e.position[0]
+                    object.position.y = e.position[1]
+                    object.position.z = e.position[2]
+                    object.children[0].castShadow = true; //default is false
 
-const mtlLoader = new MTLLoader()
-mtlLoader.load('./models/tent_blend_10.mtl',
-    (materials) => {
-        materials.preload()
-        const objLoader = new OBJLoader();
-        objLoader.setMaterials(materials);
-        objLoader.load('./models/tent_blend_10.obj',
-            (object) => {
-                object.position.x = -2.75
-                object.position.y = 0.5
-                object.position.z = -3.25
-                object.children[0].castShadow = true; //default is false
+                    object.receiveShadow = true;
+                    // object.children[0].material.color = new THREE.Color(0.384, 0.698, 0.258);
+                    // object.children[0].material.emissive = new THREE.Color(0, 0, 0);
+                    object.children[0].material.shininess = 0;
+                    scene.add(object)
+                },
+                (xhr) => {
+                    c((xhr.loaded / xhr.total * 100) + '% loaded')
+                },
+                (error) => {
+                    c('Masz problem: ' + error)
+                })
+        }
+    );
+});
 
-                object.receiveShadow = true;
-                // object.children[0].material.color = new THREE.Color(0.384, 0.698, 0.258);
-                // object.children[0].material.emissive = new THREE.Color(0, 0, 0);
-                object.children[0].material.shininess = 0;
-                scene.add(object)
-            },
-            (xhr) => {
-                c((xhr.loaded / xhr.total * 100) + '% loaded')
-            },
-            (error) => {
-                c('Masz problem: ' + error)
-            })
-    }
-);
 
 //change on resize page (renderer)
 
 window.addEventListener('resize', () => {
-    console.log(PerspectiveCamera)
 
     // Update sizes
 

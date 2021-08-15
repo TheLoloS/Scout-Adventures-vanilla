@@ -14,7 +14,8 @@ Do function to easly create new obiect on area:
     ✔ find the difference with rgb color on Blender and show on the site. @started(21-08-14 20:59) @done(21-08-14 21:22) @lasted(23m30s)
     ✔ mind of system to save maps of user data load object and other important stuff @done(21-08-14 22:21)
     ✘ use parametrs odj function to edit position, rotate, and size of imported objects //figure out!!!!! @cancelled(21-08-14 22:48)
-    ☐ store all meshes in one object to can use them latter
+    ✔ store all meshes in one object to can use them latter @done(21-08-16 00:14)
+        ✔ do virtual data byse {local storgrade} @done(21-08-16 00:15)
     ☐ add rotate option to gui menu of objects add to the map from user (meaby second fuction?)
     ☐ edit rotate for default rotate of object and delete position on addobjmtlobject() parameters
     ☐ add asynch to load objects and ()=> retur end of the loading (must have... for loading screen and opymalization)
