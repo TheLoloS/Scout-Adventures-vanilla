@@ -23,7 +23,18 @@ import { GUI } from './three/examples/jsm/libs/dat.gui.module.js'
 import Stats from './three/examples/jsm/libs/stats.module.js'
 import { Material, PerspectiveCamera } from './three/build/three.module.js'
 import abc from './dataBase.js'
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
 
+function onMouseMove(event) {
+
+    // calculate mouse position in normalized device coordinates
+    // (-1 to +1) for both components
+
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+}
 
 
 var stats = new Stats(); // <-- remove me
@@ -60,19 +71,49 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 
 const scene = new THREE.Scene()
-var axesHelper = new THREE.AxesHelper(5);
-scene.add(axesHelper);
+scene.background = new THREE.Color(0x4287f5);
+// var axesHelper = new THREE.AxesHelper(5);
+// scene.add(axesHelper);
+
+//camera add and config
+
+const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
+camera.position.set(0, 40, 0);
+scene.add(camera)
+
+/**
+ * Renderer
+ */
+
+const renderer = new THREE.WebGLRenderer({
+    antialias: true,
+    canvas: canvas
+
+})
+renderer.shadowMap.enabled = true;
+renderer.setSize(sizes.width, sizes.height)
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+renderer.physicallyCorrectLights = true
 
 // Lights
 
+
+
+
+// update the picking ray with the camera and mouse position
+raycaster.setFromCamera(mouse, camera);
+
+// calculate objects intersecting the picking ray
+
+
 //light for ale things and models
 
-const Light = new THREE.AmbientLight(0xffffff, 0.5);
+const Light = new THREE.AmbientLight(0xffffff, 3);
 scene.add(Light)
 
 //light for models and shadows
 
-const pointLight = new THREE.SpotLight(0xffffff);
+const pointLight = new THREE.SpotLight(0xffffff, 20);
 
 // set target,position,size od map(better shadows), 
 // near and far (camera), focus to see shadow.
@@ -80,8 +121,10 @@ const pointLight = new THREE.SpotLight(0xffffff);
 (function pointLightConfig() {
     pointLight.target.position.set(-20, 0, -20);
     pointLight.position.set(-42, 40, -42);
-    pointLight.shadow.mapSize.width = 8192;
-    pointLight.shadow.mapSize.height = 8192;
+    // pointLight.shadow.mapSize.width = 8192;
+    // pointLight.shadow.mapSize.width = 8192;
+    pointLight.shadow.mapSize.height = 2048;
+    pointLight.shadow.mapSize.height = 2048;
     pointLight.shadow.camera.near = 0.1;
     pointLight.shadow.camera.far = 100;
     pointLight.shadow.focus = 0.5;
@@ -102,7 +145,8 @@ const geometry2 = new THREE.BoxGeometry(1, 1, 1, 6);
 
 const materials = [
     new THREE.MeshStandardMaterial({ color: "#6EC54B" }),
-    new THREE.MeshStandardMaterial({ color: "#59a33b" }),
+    // new THREE.MeshStandardMaterial({ color: "#59a33b" }),
+    new THREE.MeshStandardMaterial({ color: "#49d90f" }),
     new THREE.MeshStandardMaterial({ color: "#5e4007" }),
     new THREE.MeshStandardMaterial({ color: "#452f07" })
 ]
@@ -121,6 +165,8 @@ for (let i = 0; i < geometry2.groups.length; i++) {
 }
 geometry2.groups[2].materialIndex = 0;
 
+// const interaction = new Interaction(renderer, scene, camera);
+
 
 //add objects for floor off the game:
 
@@ -134,12 +180,11 @@ for (let i = 0; i < 1600; i++, a++) {
     sphere.position.z = -a;
     sphere.receiveShadow = true;
     scene.add(sphere);
-    (i == 1599) ? c(sphere.position): c();
-    (i == 0) ? c(sphere.position): c();
+    sphere.name = `floor_${i}`
 }
 
 //add obj and mtl files function
-abc.Map.Buldings.forEach(e => {
+abc.Map.Buldings.forEach((e, i) => {
     const mtlLoader = new MTLLoader()
     mtlLoader.load(e.nameBuldings + '.mtl',
         (materials) => {
@@ -148,16 +193,16 @@ abc.Map.Buldings.forEach(e => {
             objLoader.setMaterials(materials);
             objLoader.load(e.nameBuldings + '.obj',
                 (object) => {
-                    object.position.x = e.position[0]
-                    object.position.y = e.position[1]
-                    object.position.z = e.position[2]
+                    object.children[0].position.set(e.position[0], e.position[1], e.position[2]);
                     object.children[0].castShadow = true; //default is false
-
-                    object.receiveShadow = true;
+                    object.children[0].name = `buldings_${i}`
+                    object.children[0].receiveShadow = true;
                     // object.children[0].material.color = new THREE.Color(0.384, 0.698, 0.258);
                     // object.children[0].material.emissive = new THREE.Color(0, 0, 0);
                     object.children[0].material.shininess = 0;
-                    scene.add(object)
+                    object.children[0].cursor = 'pointer';
+                    // object.on('click', function(ev) { c(ev) });
+                    scene.add(object.children[0])
                 },
                 (xhr) => {
                     c((xhr.loaded / xhr.total * 100) + '% loaded')
@@ -190,24 +235,6 @@ window.addEventListener('resize', () => {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
-//camera add and config
-
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-camera.position.set(0, 40, 0);
-scene.add(camera)
-
-/**
- * Renderer
- */
-
-const renderer = new THREE.WebGLRenderer({
-    antialias: true,
-    canvas: canvas
-
-})
-renderer.shadowMap.enabled = true;
-renderer.setSize(sizes.width, sizes.height)
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 //config page movment
 
@@ -225,9 +252,25 @@ controls.screenSpacePanning = 5 //right mouse click
 
 controls.update();
 
+c(scene)
+
+window.addEventListener('mousemove', onMouseMove, false);
+
 const clock = new THREE.Clock()
 const tick = () => {
+    raycaster.setFromCamera(mouse, camera);
 
+    const intersects = raycaster.intersectObjects(scene.children);
+    // (intersects[0]) ? c(intersects[0].object.visible): null;
+
+    // intersects[0].object.geometry.groups[2].materialIndex = 3
+    for (let i = 0; i < intersects.length; i++) {
+        (intersects[i].object.type == "Group") ? intersects[i].object.children[0].visible = false: intersects[i].object.visible = false;
+
+        // intersects[i].object.geometry.groups[2].materialIndex = 3
+        // .object.material.color.set(0xff0000);
+
+    }
     const elapsedTime = clock.getElapsedTime()
 
     // Render

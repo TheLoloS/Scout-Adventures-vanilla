@@ -11,7 +11,7 @@ function SetAndRead() {
             'Type': 'normal',
             'Buldings': [{
                     'Type': 'normal',
-                    'nameBuldings': './models/tent_blend_10',
+                    'nameBuldings': './models/tent_blend_11',
                     'lvl': 1,
                     'position': [-14, 0.5, -14],
                     'rotate': 2,
@@ -21,19 +21,19 @@ function SetAndRead() {
                 },
                 {
                     'Type': 'normal',
-                    'nameBuldings': './models/tent_blend_10',
+                    'nameBuldings': './models/tent_blend_11',
                     'lvl': 1,
                     'position': [-8, 0.5, -14],
-                    'rotate': 2,
+                    'rotate': 1,
                     'update': false,
                     'updateTime': null
                 },
                 {
                     'Type': 'normal',
-                    'nameBuldings': './models/tent_blend_10',
+                    'nameBuldings': './models/tent_blend_11',
                     'lvl': 1,
                     'position': [-5, 0.5, -6],
-                    'rotate': 2,
+                    'rotate': 1,
                     'update': false,
                     'updateTime': null
                 }
