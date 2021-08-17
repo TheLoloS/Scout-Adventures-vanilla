@@ -17,12 +17,15 @@
 
 import * as THREE from './three/build/three.module.js'
 import { OrbitControls } from './three/examples/jsm/controls/OrbitControls.js'
-import { OBJLoader } from './three/examples/jsm/loaders/OBJLoader.js';
-import { MTLLoader } from './three/examples/jsm/loaders/MTLLoader.js ';
 import { GUI } from './three/examples/jsm/libs/dat.gui.module.js'
 import Stats from './three/examples/jsm/libs/stats.module.js'
-import { Material, PerspectiveCamera } from './three/build/three.module.js'
 import abc from './dataBase.js'
+import createFloor from './createFloor.js'
+import OBJMTLLoader from './OBJMTLLoader.js'
+
+
+//variables for cklicker event module
+
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
@@ -136,83 +139,13 @@ const pointLight = new THREE.SpotLight(0xffffff, 20);
 scene.add(pointLight);
 scene.add(pointLight.target)
 
-//geometry box for flor
+//import module of create floor
 
-const geometry = new THREE.BoxGeometry(1, 1, 1, 6);
-const geometry2 = new THREE.BoxGeometry(1, 1, 1, 6);
+createFloor(scene);
 
-//material list usage: materialIndex = \how in simple array/
+//import objmtl loader
 
-const materials = [
-    new THREE.MeshStandardMaterial({ color: "#6EC54B" }),
-    // new THREE.MeshStandardMaterial({ color: "#59a33b" }),
-    new THREE.MeshStandardMaterial({ color: "#49d90f" }),
-    new THREE.MeshStandardMaterial({ color: "#5e4007" }),
-    new THREE.MeshStandardMaterial({ color: "#452f07" })
-]
-
-//first material do with gorups
-
-for (let i = 0; i < geometry.groups.length; i++) {
-    geometry.groups[i].materialIndex = 3;
-}
-geometry.groups[2].materialIndex = 1;
-
-//second material
-
-for (let i = 0; i < geometry2.groups.length; i++) {
-    geometry2.groups[i].materialIndex = 2;
-}
-geometry2.groups[2].materialIndex = 0;
-
-// const interaction = new Interaction(renderer, scene, camera);
-
-
-//add objects for floor off the game:
-
-for (let i = 0; i < 1600; i++, a++) {
-
-    // const sphere = new THREE.Mesh((i % 3 == 0) ? geometry : geometry2, materials);       //for rand color of flor
-    const sphere = new THREE.Mesh(geometry, materials);
-    (a == 40) ? b += 1: b = b;
-    sphere.position.x = -b;
-    (a == 40) ? a = 0: a = a;
-    sphere.position.z = -a;
-    sphere.receiveShadow = true;
-    scene.add(sphere);
-    sphere.name = `floor_${i}`
-}
-
-//add obj and mtl files function
-abc.Map.Buldings.forEach((e, i) => {
-    const mtlLoader = new MTLLoader()
-    mtlLoader.load(e.nameBuldings + '.mtl',
-        (materials) => {
-            materials.preload()
-            const objLoader = new OBJLoader();
-            objLoader.setMaterials(materials);
-            objLoader.load(e.nameBuldings + '.obj',
-                (object) => {
-                    object.children[0].position.set(e.position[0], e.position[1], e.position[2]);
-                    object.children[0].castShadow = true; //default is false
-                    object.children[0].name = `buldings_${i}`
-                    object.children[0].receiveShadow = true;
-                    // object.children[0].material.color = new THREE.Color(0.384, 0.698, 0.258);
-                    // object.children[0].material.emissive = new THREE.Color(0, 0, 0);
-                    object.children[0].material.shininess = 0;
-                    object.children[0].cursor = 'pointer';
-                    // object.on('click', function(ev) { c(ev) });
-                    scene.add(object.children[0])
-                },
-                (xhr) => {
-                    c((xhr.loaded / xhr.total * 100) + '% loaded')
-                },
-                (error) => {
-                    c('Masz problem: ' + error)
-                })
-        }
-    );
-});
+OBJMTLLoader(scene)
 
 
 //change on resize page (renderer)
@@ -251,9 +184,6 @@ controls.minAzimuthAngle = 1
 controls.screenSpacePanning = 5 //right mouse click
 
 controls.update();
-
-c(scene)
-
 window.addEventListener('mousemove', onMouseMove, false);
 
 const clock = new THREE.Clock()
