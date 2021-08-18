@@ -158,7 +158,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+TheLoloS - [@your_twitter](https://twitter.com/TheLoloS1) - email@example.com
 
 Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
 
@@ -194,6 +194,6 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 [issues-url]: https://github.com/TheLoloS/Scout-Adventures-vanilla/issues
 [license-shield]: https://img.shields.io/github/license/TheLoloS/Scout-Adventures-vanilla.svg?style=for-the-badge
 [license-url]: https://github.com/TheLoloS/Scout-Adventures-vanilla/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
+<!-- [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555 -->
+<!-- [linkedin-url]: https://linkedin.com/in/othneildrew -->
 [product-screenshot]: images/screenshot.png
