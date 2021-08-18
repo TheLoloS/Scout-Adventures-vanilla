@@ -16,39 +16,33 @@
 
 
 import * as THREE from './three/build/three.module.js'
-import { OrbitControls } from './three/examples/jsm/controls/OrbitControls.js'
+import { OrbitControls } from '../three/examples/jsm/controls/OrbitControls.js'
 import { GUI } from './three/examples/jsm/libs/dat.gui.module.js'
 import Stats from './three/examples/jsm/libs/stats.module.js'
-import abc from './modules/dataBase.js'
 import createFloor from './modules/createFloor.js'
 import OBJMTLLoader from './modules/OBJMTLLoader.js'
+import addLights from './modules/addLights.js'
+import setBackground from './modules/setBackground.js'
+import confControls from './modules/controls.js'
+import rendConf from './modules/rendererConf.js'
+import onhover from './modules/onMouseMove.js'
 
+const c = console.log;
 
 //variables for cklicker event module
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
-function onMouseMove(event) {
+//import onMouseMove
 
-    // calculate mouse position in normalized device coordinates
-    // (-1 to +1) for both components
-
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-}
-
+onhover(mouse);
 
 var stats = new Stats(); // <-- remove me
 document.body.appendChild(stats.dom); // <-- remove me
 
-//difference is the rgb difference of color value (you must -)
 
-let difference = [-0.21499999999999997, -0.361, -0.145]
 
-const c = console.log;
-c(abc)
 
 //variables for add floor objects
 
@@ -74,7 +68,7 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 
 const scene = new THREE.Scene()
-scene.background = new THREE.Color(0x4287f5);
+
 // var axesHelper = new THREE.AxesHelper(5);
 // scene.add(axesHelper);
 
@@ -93,14 +87,9 @@ const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 
 })
-renderer.shadowMap.enabled = true;
-renderer.setSize(sizes.width, sizes.height)
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-renderer.physicallyCorrectLights = true
+rendConf(renderer)
 
-// Lights
-
-
+const controls = new OrbitControls(camera, renderer.domElement);
 
 
 // update the picking ray with the camera and mouse position
@@ -108,36 +97,13 @@ raycaster.setFromCamera(mouse, camera);
 
 // calculate objects intersecting the picking ray
 
+//import module to change background: 
 
-//light for ale things and models
+setBackground(scene)
 
-const Light = new THREE.AmbientLight(0xffffff, 3);
-scene.add(Light)
+//import module off addLight
 
-//light for models and shadows
-
-const pointLight = new THREE.SpotLight(0xffffff, 20);
-
-// set target,position,size od map(better shadows), 
-// near and far (camera), focus to see shadow.
-// sfunk to hide code
-(function pointLightConfig() {
-    pointLight.target.position.set(-20, 0, -20);
-    pointLight.position.set(-42, 40, -42);
-    // pointLight.shadow.mapSize.width = 8192;
-    // pointLight.shadow.mapSize.width = 8192;
-    pointLight.shadow.mapSize.height = 2048;
-    pointLight.shadow.mapSize.height = 2048;
-    pointLight.shadow.camera.near = 0.1;
-    pointLight.shadow.camera.far = 100;
-    pointLight.shadow.focus = 0.5;
-    pointLight.castShadow = true;
-})();
-
-//add all patrs of light to scene (important order!!)
-
-scene.add(pointLight);
-scene.add(pointLight.target)
+addLights(scene)
 
 //import module of create floor
 
@@ -147,6 +113,9 @@ createFloor(scene);
 
 OBJMTLLoader(scene)
 
+//import controls from controls
+
+confControls(controls)
 
 //change on resize page (renderer)
 
@@ -168,38 +137,13 @@ window.addEventListener('resize', () => {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
-
-//config page movment
-
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.target.set(-15, 0, -15)
-
-//camera set up and movment
-
-controls.maxDistance = 40
-controls.minDistance = 6
-controls.maxPolarAngle = 1.1
-controls.minPolarAngle = 0.9
-controls.minAzimuthAngle = 1
-controls.screenSpacePanning = 5 //right mouse click
-
-controls.update();
-window.addEventListener('mousemove', onMouseMove, false);
-
 const clock = new THREE.Clock()
 const tick = () => {
     raycaster.setFromCamera(mouse, camera);
 
     const intersects = raycaster.intersectObjects(scene.children);
-    // (intersects[0]) ? c(intersects[0].object.visible): null;
-
-    // intersects[0].object.geometry.groups[2].materialIndex = 3
     for (let i = 0; i < intersects.length; i++) {
         (intersects[i].object.type == "Group") ? intersects[i].object.children[0].visible = false: intersects[i].object.visible = false;
-
-        // intersects[i].object.geometry.groups[2].materialIndex = 3
-        // .object.material.color.set(0xff0000);
-
     }
     const elapsedTime = clock.getElapsedTime()
 
