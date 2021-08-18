@@ -19,7 +19,7 @@
   <h3 align="center">Scout Adventures vanilla</h3>
 
   <p align="center">
-    An awesome game did in voxel with JavaScript and Three.js in scout universe!
+    An awesome game did in voxel art style with JavaScript and Three.js in scout universe!
     <br />
     <a href="https://github.com/TheLoloS/Scout-Adventures-vanilla"><strong>Explore the docs »</strong></a>
     <br />
