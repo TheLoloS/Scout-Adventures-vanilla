@@ -1,5 +1,5 @@
-import * as THREE from './three/build/three.module.js';
-import { geometry, geometry2, materials } from './geometryAndMaterials.js'
+import * as THREE from '../three/build/three.module.js';
+import { geometry, geometry2, materials } from '../modules/geometryAndMaterials.js'
 
 const createFloor = (scene) => {
 

@@ -19,9 +19,9 @@ import * as THREE from './three/build/three.module.js'
 import { OrbitControls } from './three/examples/jsm/controls/OrbitControls.js'
 import { GUI } from './three/examples/jsm/libs/dat.gui.module.js'
 import Stats from './three/examples/jsm/libs/stats.module.js'
-import abc from './dataBase.js'
-import createFloor from './createFloor.js'
-import OBJMTLLoader from './OBJMTLLoader.js'
+import abc from './modules/dataBase.js'
+import createFloor from './modules/createFloor.js'
+import OBJMTLLoader from './modules/OBJMTLLoader.js'
 
 
 //variables for cklicker event module
