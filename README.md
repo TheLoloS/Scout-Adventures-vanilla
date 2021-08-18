@@ -158,7 +158,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-TheLoloS - [@your_twitter](https://twitter.com/TheLoloS1) - email@example.com
+TheLoloS - [Twitter](https://twitter.com/TheLoloS1) - thelolo2696@gmail.com
 
 Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
 
