@@ -1,6 +1,6 @@
 # Scout Adventures vanilla
  <!-- Try do game without node js/webpack and other stuff -->
-+[![Contributors][contributors-shield]][contributors-url]
+[![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
@@ -16,15 +16,15 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">Scout Adventures vanilla</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+    An awesome game did in voxel with JavaScript and Three.js in scout universe!
     <br />
     <a href="https://github.com/TheLoloS/Scout-Adventures-vanilla"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/TheLoloS/Scout-Adventures-vanilla">View Demo</a>
+    <a href="https://thelolos.github.io/Scout-Adventures-vanilla/">View Demo</a>
     ·
     <a href="https://github.com/TheLoloS/Scout-Adventures-vanilla/issues">Report Bug</a>
     ·
