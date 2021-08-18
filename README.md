@@ -196,4 +196,4 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 [license-url]: https://github.com/TheLoloS/Scout-Adventures-vanilla/blob/master/LICENSE.txt
 <!-- [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555 -->
 <!-- [linkedin-url]: https://linkedin.com/in/othneildrew -->
-[product-screenshot]: ihttps://raw.githubusercontent.com/TheLoloS/Scout-Adventures-vanilla/main/textures/ss.png
+[product-screenshot]: textures/ss.png
