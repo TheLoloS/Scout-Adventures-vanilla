@@ -10,7 +10,9 @@ const geometry2 = new THREE.BoxGeometry(1, 1, 1, 6);
 const materials = [
     new THREE.MeshStandardMaterial({ color: "#6EC54B" }),
     // new THREE.MeshStandardMaterial({ color: "#59a33b" }),
-    new THREE.MeshStandardMaterial({ color: "#49d90f" }),
+    // new THREE.MeshStandardMaterial({ color: "#49d90f" }),
+    // new THREE.MeshStandardMaterial({ color: "#73ab40" }),
+    new THREE.MeshStandardMaterial({ color: "#2dbd47" }),
     new THREE.MeshStandardMaterial({ color: "#5e4007" }),
     new THREE.MeshStandardMaterial({ color: "#452f07" })
 ]

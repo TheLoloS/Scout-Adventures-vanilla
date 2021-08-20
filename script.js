@@ -17,7 +17,8 @@
 
 import * as THREE from './three/build/three.module.js'
 import { OrbitControls } from '../three/examples/jsm/controls/OrbitControls.js'
-import { GUI } from './three/examples/jsm/libs/dat.gui.module.js'
+// import { GUI } from './three/examples/jsm/libs/dat.gui.module.js'
+// import guiConf from './modules/gui.js'
 import Stats from './three/examples/jsm/libs/stats.module.js'
 import createFloor from './modules/createFloor.js'
 import OBJMTLLoader from './modules/OBJMTLLoader.js'
@@ -26,9 +27,18 @@ import setBackground from './modules/setBackground.js'
 import confControls from './modules/controls.js'
 import rendConf from './modules/rendererConf.js'
 import onhover from './modules/onMouseMove.js'
+import resizeEvent from './modules/setEvents.js'
+// import tryed from './modules/clicked.js'
 
 const c = console.log;
 
+
+// Debug gui
+
+// const gui = new GUI()
+// guiConf(gui)
+
+// tryed()
 //variables for cklicker event module
 
 const raycaster = new THREE.Raycaster();
@@ -56,10 +66,6 @@ const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
 }
-
-// Debug gui
-
-const gui = new GUI()
 
 // Canvas
 
@@ -117,25 +123,9 @@ OBJMTLLoader(scene)
 
 confControls(controls)
 
-//change on resize page (renderer)
+//add event from setEvent (resize)
 
-window.addEventListener('resize', () => {
-
-    // Update sizes
-
-    sizes.width = window.innerWidth
-    sizes.height = window.innerHeight
-
-    // Update camera
-
-    camera.aspect = sizes.width / sizes.height
-    camera.updateProjectionMatrix()
-
-    // Update renderer
-
-    renderer.setSize(sizes.width, sizes.height)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-})
+resizeEvent(camera, renderer)
 
 const clock = new THREE.Clock()
 const tick = () => {
@@ -143,7 +133,7 @@ const tick = () => {
 
     const intersects = raycaster.intersectObjects(scene.children);
     for (let i = 0; i < intersects.length; i++) {
-        (intersects[i].object.type == "Group") ? intersects[i].object.children[0].visible = false: intersects[i].object.visible = false;
+        (intersects[i].object.type == "Group") ? intersects[i].object.children[0].visible = false: null; // intersects[i].object.visible = false;
     }
     const elapsedTime = clock.getElapsedTime()
 

@@ -2,7 +2,6 @@
 
 
 const confControls = (controls) => {
-    console.log(controls)
     controls.target.set(-15, 0, -15)
 
     //camera set up and movment

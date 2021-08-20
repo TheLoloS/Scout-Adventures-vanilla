@@ -1,7 +1,7 @@
 (localStorage.getItem('startObjectWithMapData') === null) ? SetAndRead(): Read();
 
 var abc;
-
+//pamietaj zawsze przy zmianie usuń zapis pamiecii@@@@@@@@@@@
 function SetAndRead() {
 
     //Set object to letter add it
@@ -11,7 +11,7 @@ function SetAndRead() {
             'Type': 'normal',
             'Buldings': [{
                     'Type': 'normal',
-                    'nameBuldings': './models/tent_blend_11',
+                    'nameBuldings': '../models/tent_blend_11',
                     'lvl': 1,
                     'position': [-14, 0.5, -14],
                     'rotate': 2,
@@ -21,7 +21,7 @@ function SetAndRead() {
                 },
                 {
                     'Type': 'normal',
-                    'nameBuldings': './models/tent_blend_11',
+                    'nameBuldings': '../models/tent_blend_12',
                     'lvl': 1,
                     'position': [-8, 0.5, -14],
                     'rotate': 1,
@@ -30,7 +30,7 @@ function SetAndRead() {
                 },
                 {
                     'Type': 'normal',
-                    'nameBuldings': './models/tent_blend_11',
+                    'nameBuldings': '../models/tent_blend_15',
                     'lvl': 1,
                     'position': [-5, 0.5, -6],
                     'rotate': 1,

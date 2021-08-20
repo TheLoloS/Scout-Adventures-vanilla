@@ -11,6 +11,7 @@ const onhover = (mouse) => {
 
 
     window.addEventListener('mousemove', onMouseMove, false);
+    // window.addEventListener('click' )
 }
 
 export default onhover

@@ -26,7 +26,7 @@ const mapBuild = (scene) => {
                         scene.add(object.children[0])
                     },
                     (xhr) => {
-                        c((xhr.loaded / xhr.total * 100) + '% loaded')
+                        c((xhr.loaded / xhr.total * 100) + '% of object are loaded')
                     },
                     (error) => {
                         c('Masz problem: ' + error)
