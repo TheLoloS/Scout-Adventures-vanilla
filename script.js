@@ -15,10 +15,11 @@
 //              (@,%@@@@@@,,
 
 import * as THREE from "./three/build/three.module.js";
+import Stats from "./three/examples/jsm/libs/stats.module.js";
 import { OrbitControls } from "./three/examples/jsm/controls/OrbitControls.js";
 // import { GUI } from './three/examples/jsm/libs/dat.gui.module.js'
 // import guiConf from './modules/gui.js'
-import Stats from "./three/examples/jsm/libs/stats.module.js";
+
 import createFloor from "./modules/createFloor.js";
 import OBJMTLLoader from "./modules/OBJMTLLoader.js";
 import addLights from "./modules/addLights.js";
